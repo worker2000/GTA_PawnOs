@@ -34,7 +34,7 @@ if (isset($_GET['suchbegriff'])) {
                     <td>
                         <a href=\"bearbeiten.php?id=".$row["ID"]."\">Bearbeiten</a>
                         <a href=\"loeschen.php?id=".$row["ID"]."\">Löschen</a>
-                        <a href=\"einkaufswagen.php?id=".$row["ID"]."\">Einkaufswagen</a>
+                        <a href=\"einkaufswagen_verkauf.php?id=".$row["ID"]."\">Einkaufswagen für Verkauf</a>
                     </td>
                   </tr>";
         }

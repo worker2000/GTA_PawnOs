@@ -1,75 +1,67 @@
 <?php
-require_once('config.php');
+session_start();
 
-// Variablen für die Rechnung initialisieren
-$rechnungsPosten = array();
-$rechnungsSumme = 0.00;
+// Überprüfen, ob der Einkaufswagen nicht leer ist
+if (!empty($_SESSION['einkaufswagen'])) {
+    // Daten aus dem Einkaufswagen abrufen
+    $einkaufswagen = $_SESSION['einkaufswagen'];
 
-// Überprüfen, ob das Formular abgeschickt wurde
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Eingaben aus dem Formular abrufen
-    $suchbegriff = $_POST['suchbegriff'];
-    $aktion = $_POST['aktion'];
-    $menge = $_POST['menge'];
+    // Gesamtsumme initialisieren
+    $gesamtsumme = 0;
 
-    // SQL-Abfrage, um den Artikel basierend auf dem Suchbegriff abzurufen
-    $sql = "SELECT * FROM Artikel WHERE Artikelname LIKE '%$suchbegriff%'";
-    $result = $conn->query($sql);
+    // Rechnungsinformationen
+    $kunde = $_POST['kunde'];
+    $mitarbeiter = $_POST['mitarbeiter'];
+    $art = $_POST['art'];
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $artikelname = $row["Artikelname"];
+    // Rechnungstabelle anzeigen
+    echo "<h2>Rechnung</h2>";
+    echo "<p>Kunde: $kunde</p>";
+    echo "<p>Mitarbeiter: $mitarbeiter</p>";
+    echo "<p>Art: $art</p>";
+    echo "<table>
+            <tr>
+                <th>Artikelname</th>
+                <th>Anzahl</th>
+                <th>Verkaufspreis</th>
+                <th>Gesamtpreis</th>
+            </tr>";
 
-        // Preise basierend auf der ausgewählten Aktion festlegen
-        if ($aktion == 'einkauf') {
-            $preis = $row["Einkaufspreis"];
-        } else {
-            $preis = $row["Verkaufspreis"];
-        }
+    foreach ($einkaufswagen as $artikel) {
+        $artikelname = $artikel['artikelname'];
+        $anzahl = $artikel['anzahl'];
+        $verkaufspreis = $artikel['verkaufspreis'];
+        $gesamtpreis = $verkaufspreis * $anzahl;
 
-        // Rechnungsposition hinzufügen
-        $rechnungsPosten[] = array(
-            "Artikelname" => $artikelname,
-            "Preis" => $preis,
-            "Menge" => $menge
-        );
+        echo "<tr>
+                <td>$artikelname</td>
+                <td>$anzahl</td>
+                <td>$verkaufspreis</td>
+                <td>$gesamtpreis</td>
+              </tr>";
 
-        // Rechnungssumme aktualisieren
-        $rechnungsSumme += ($preis * $menge);
-    }
-}
-
-// Rechnung speichern
-if (isset($_POST['rechnungSpeichern'])) {
-    // SQL-Code zum Speichern der Rechnung in der Datenbank
-    foreach ($rechnungsPosten as $posten) {
-        $artikelname = $posten['Artikelname'];
-        $preis = $posten['Preis'];
-        $menge = $posten['Menge'];
-
-        $sql = "INSERT INTO Rechnung (Artikelname, Preis, Menge) VALUES ('$artikelname', '$preis', '$menge')";
-        $conn->query($sql);
+        // Gesamtsumme aktualisieren
+        $gesamtsumme += $gesamtpreis;
     }
 
-    // Erfolgsmeldung anzeigen
-    echo "Die Rechnung wurde erfolgreich gespeichert!";
+    echo "</table>";
+
+    // Gesamtsumme anzeigen
+    echo "<p>Gesamtsumme: $gesamtsumme</p>";
+
+    // Button für Copy & Paste
+    echo "<button onclick=\"copyToClipboard()\">Copy & Paste</button>";
+
+    // JavaScript-Funktion zum Kopieren in die Zwischenablage
+    echo "<script>
+            function copyToClipboard() {
+                const text = document.getElementById('rechnungstext').innerText;
+                navigator.clipboard.writeText(text).then(function() {
+                    alert('Rechnungstext wurde in die Zwischenablage kopiert!');
+                });
+            }
+          </script>";
+} else {
+    echo "<h2>Der Einkaufswagen ist leer.</h2>";
 }
 ?>
-
-<!-- HTML-Formular zur Suche und zum Hinzufügen von Artikeln zur Rechnung -->
-<form action="rechnung.php" method="POST">
-    <label for="suchbegriff">Suchbegriff:</label>
-    <input type="text" name="suchbegriff" id="suchbegriff" required>
-    <label for="aktion">Aktion:</label>
-    <select name="aktion" id="aktion">
-        <option value="einkauf">Einkauf</option>
-        <option value="verkauf">Verkauf</option>
-    </select>
-    <label for="menge">Menge:</label>
-    <input type="number" name="menge" id="menge" required>
-    <button type="submit">Zur Rechnung hinzufügen</button>
-</form>
-
-<!-- Anzeige der aktuellen Rechnung -->
-<h2>Aktuelle Rechnung</h2>
-<?php if (!
