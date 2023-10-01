@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikelsuche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #35424a;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 0.5rem;
+            text-align: center;
+        }
+
+        th {
+            background-color: #35424a;
+            color: white;
+        }
+
+        a {
+            margin-right: 1rem;
+            color: #35424a;
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #35424a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #29373b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Artikelsuche</h1>
+    </header>
+    <div class="container">
+	<?php
+	require_once('config.php');
+
+			// Überprüfen, ob eine Suchanfrage gesendet wurde
+			if (isset($_GET['suchbegriff'])) {
+				// Suchbegriff aus der GET-Anfrage abrufen
+				$suchbegriff = $_GET['suchbegriff'];
+
+				// SQL-Abfrage mit Suchanfrage erstellen
+				$sql = "SELECT * FROM Artikel WHERE Artikelname LIKE '%$suchbegriff%'";
+
+				$result = $conn->query($sql);
+
+				if ($result->num_rows > 0) {
+					echo "<table>
+							<tr>
+								<th>Artikelname</th>
+								<th>Geschlecht</th>
+								<th>Verkaufsladen</th>
+								<th>Kategorie</th>
+								<th>Ladenpreis</th>
+								<th>Empfohlener Einkaufspreis</th>
+								<th>Empfohlener Verkaufspreis</th>
+								<th>Aktionen</th>
+							</tr>";
+
+					while ($row = $result->fetch_assoc()) {
+						echo "<tr>
+								<td>".$row["Artikelname"]."</td>
+								<td>".$row["Geschlecht"]."</td>
+								<td>".$row["Verkaufsladen"]."</td>
+								<td>".$row["Kategorie"]."</td>
+								<td>".$row["Einkaufspreis_org"]."</td>
+								<td>".$row["EmpfohlenerEinkaufspreis"]."</td>
+								<td>".$row["EmpfohlenerVerkaufspreis"]."</td>
+								<td>
+								<a href=\"bearbeiten.php?id=".$row["ID"]."\">Bearbeiten</a>
+									<a href=\"loeschen.php?id=".$row["ID"]."\">Löschen</a>
+									<a href=\"einkaufswagen_verkauf.php?id=".$row["ID"]."\">Einkaufswagen für Verkauf</a>
+								</td>
+							  </tr>";
+					}
+
+					echo "</table>";
+				} else {
+					echo "Keine Artikel gefunden.";
+				}
+			}
+			?>
+<!-- HTML-Formular mit Suchfeld -->
+<form action="abfrage.php" method="GET">
+    <input type="text" name="suchbegriff" placeholder="Artikel suchen">
+    <button type="submit">Suchen</button>
+</form>
+
+
+    </div>
+</body>
+</html>

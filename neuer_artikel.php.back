@@ -1,0 +1,35 @@
+<?php
+require_once('config.php');
+
+// Überprüfen, ob das Formular abgeschickt wurde
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Eingaben aus dem Formular abrufen
+    $artikelname = $_POST['artikelname'];
+    $einkaufspreis_org = $_POST['einkaufspreis_org'];
+    $einkaufspreis = $_POST['einkaufspreis'];
+    $empfohlener_verkaufspreis = $_POST['empfohlener_verkaufspreis'];
+
+    // SQL-Abfrage, um den neuen Artikel zur Datenbank hinzuzufügen
+    $sql = "INSERT INTO Artikel (Artikelname, Einkaufspreis_org, Einkaufspreis, EmpfohlenerVerkaufspreis) VALUES ('$artikelname', 'einkaufspreis_org', '$einkaufspreis', '$empfohlener_verkaufspreis')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Der Artikel wurde erfolgreich hinzugefügt.";
+    } else {
+        echo "Fehler beim Hinzufügen des Artikels: " . $conn->error;
+    }
+}
+?>
+
+<!-- HTML-Formular zum Hinzufügen neuer Artikel -->
+<form action="neuer_artikel.php" method="POST">
+    <label for="artikelname">Artikelname:</label>
+    <input type="text" name="artikelname" id="artikelname" required>
+    <label for="einkaufspreis_org">Ladenpreis:</label>
+    <input type="number" step="0.01" name="einkaufspreis_org" id="einkaufspreis_org"d>
+    <label for="einkaufspreis">Einkaufspreis:</label>
+    <input type="number" step="0.01" name="einkaufspreis" id="einkaufspreis" required>
+    <label for="empfohlener_verkaufspreis">Empfohlener Verkaufspreis:</label>
+    <input type="number" step="0.01" name="empfohlener_verkaufspreis" id="empfohlener_verkaufspreis" required>
+    <button type="submit">Artikel hinzufügen</button>
+</form>
+

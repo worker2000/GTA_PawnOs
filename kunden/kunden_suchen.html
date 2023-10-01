@@ -1,0 +1,55 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="../logo.png" alt="Logo" class="logo">
+            <h1>PawnShop-OS</h1>
+        </div>
+    </header>
+
+    <nav>
+    <ul>
+        <?php foreach ($berechtigte_seiten as $url): ?>
+            <li><a href="<?php echo $url; ?>"><?php echo $url_namen[$url]; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    </nav>
+
+<body>
+    <header>
+    <h1>Kundenabfrage</h1>
+    </header>
+    <form method="GET" action="kunden_abfrage.php">
+        <label for="suchbegriff">Suchbegriff:</label>
+        <input type="text" name="suchbegriff" required><br>
+
+        <label for="suchtyp">Suchtyp:</label>
+        <select name="suchtyp">
+            <option value="name">Nach Name suchen</option>
+            <option value="kundennummer">Nach Kundennummer suchen</option>
+            <option value="interessen">Nach Interessen suchen</option>
+        </select><br>
+
+        <input type="submit" value="Suchen">
+    </form>
+    <td>
+        <a href="/pawn/kunden/kunden_hinzufuegen.html">Kunden hinzufügen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/kunden_suchen.html">Kunden suchen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/transaktion_erfassen.html">Einkauf/Verkauf erfassen</a>
+    </td>
+    <td>
+        <a href="/pawn/index.php">Hauptmenü</a>
+    </td>
+</div>
+</main>
+</body>
+</html>

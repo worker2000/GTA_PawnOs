@@ -1,0 +1,56 @@
+/* Allgemeine Stile */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header-content {
+    background-color: #F2AE1B; /* Braune Hintergrundfarbe für den Header */
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 150px;
+    height: 170px;
+    margin-right: 10px;
+}
+
+/* Stil für die linke Navigation */
+nav {
+    float: left;
+    width: 15%;
+    background-color: #f2ae1bd4;
+    height: 100vh;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    margin: 10px 0;
+}
+
+/* Stil für den rechten Hauptinhalt */
+main {
+    flex: 1; /* Nutzt den verfügbaren Platz im Flex-Container aus */
+    padding: 20px;
+}
+
+/* Stil für Links */
+a {
+    color: #0000EE; /* Blaue Link-Farbe */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Weitere Stile können nach Bedarf hinzugefügt werden */
