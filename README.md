@@ -9,12 +9,12 @@ Aber ich bin immer noch weit am Anfang.
 
 Wenn sich wirklich jemand hierher verläuft und Ideen oder Verbesserungen hat, kann sich gerne hier melden oder das ganze auch überarbeiten.
 
-Ich habe nicht uendlich viel Zeit von daher wird es Step by Step funktionieren.
+Ich habe nicht unendlich viel Zeit von daher wird es Step by Step funktionieren.
 
 
 # Anleitung
 
-Alle Datein in einen Ordner kopieren. 
+Alle Dateien in einen Ordner kopieren.
 Die sql-dateien in eine Datenbank importieren. Bei mir heißt die passende Datenbank "pawn".
 
 Danach die index.html öffnen.
