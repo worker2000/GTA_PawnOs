@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="../logo.png" alt="Logo" class="logo">
+            <h1>PawnShop-OS</h1>
+        </div>
+    </header>
+
+    <nav>
+    <ul>
+        <?php foreach ($berechtigte_seiten as $url): ?>
+            <li><a href="<?php echo $url; ?>"><?php echo $url_namen[$url]; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    </nav>
+
+<body>
+    <header>
+        <h1>Neue Transaktion</h1>
+    </header>
+    <form method="POST" action="transaktion_erfassen.php" onsubmit="return checkCustomerExists();">
+        <label for="kundennummer">Kunde (Kundennummer):</label>
+        <input type="number" name="kundennummer" required><br>
+
+        <label for="transaktionstyp">Transaktionstyp:</label>
+        <select name="transaktionstyp">
+            <option value="Einnahme">Einnahme</option>
+            <option value="Ausgabe">Ausgabe</option>
+        </select><br>
+
+        <label for="artikel">Artikel (mehrzeiliges Textfeld):</label><br>
+        <textarea name="artikel" rows="20" cols="50" required></textarea><br> <!-- Mehrzeiliges Textfeld für Artikel -->
+
+        <label for="betrag">Betrag:</label>
+        <input type="number" step="0.01" name="betrag" required><br>
+
+        <label for="transaktionsdatum">Transaktionsdatum:</label>
+        <input type="date" name="transaktionsdatum" required><br>
+
+        <input type="submit" value="Transaktion erfassen">
+    </form>
+
+    <td>
+        <a href="/pawn/kunden/kunden_hinzufuegen.html">Kunden hinzufügen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/kunden_suchen.html">Kunden suchen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/transaktion_erfassen.html">Einkauf/Verkauf erfassen</a>
+    </td>
+    <td>
+        <a href="/pawn/index.php">Hauptmenü</a>
+    </td>
+</div>
+</main>
+</body>
+</html>

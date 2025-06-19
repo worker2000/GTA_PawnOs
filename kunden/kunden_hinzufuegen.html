@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="../logo.png" alt="Logo" class="logo">
+            <h1>PawnShop-OS</h1>
+        </div>
+    </header>
+
+    <nav>
+    <ul>
+        <?php foreach ($berechtigte_seiten as $url): ?>
+            <li><a href="<?php echo $url; ?>"><?php echo $url_namen[$url]; ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    </nav>
+<body>
+    <header>
+        <h1>Kunden hinzufügen</h1>
+    </header>
+<body>
+    <div class="container">
+    <h1>Kundendaten hinzufügen</h1>
+    <form method="POST" action="kunden_hinzufuegen.php">
+        <label for="kundenname">Kundenname:</label>
+        <input type="text" name="kundenname" required /><br />
+
+        <label for="kundenvorname">Kundenvorname:</label>
+        <input type="text" name="kundenvorname" /><br />
+
+        <label for="geburtstag">Geburtstag:</label>
+        <input type="date" name="geburtstag" /><br />
+
+        <label for="telefonnummer">Telefonnummer:</label>
+        <input type="text" name="telefonnummer" /><br />
+
+        <label for="email">E-Mail Adresse:</label>
+        <input type="email" name="email" /><br />
+
+        <label for="interessen">Interessen (Schlagwörter, durch Komma getrennt):</label>
+        <input type="text" name="interessen" placeholder="z.B. Sport, Reisen, Musik"><br />
+
+        <label for="bemerkungen">Bemerkungen:</label>
+        <textarea name="bemerkungen"></textarea><br />
+
+        <label for="interne_bemerkungen">Interne Bemerkungen:</label>
+        <textarea name="interne_bemerkungen"></textarea><br />
+
+        <label for="rabatt_stufe">Rabatt-Stufe (in Prozent):</label>
+        <input type="number" name="rabatt_stufe" /><br />
+
+        <label for="kontonummer">Kontonummer:</label>
+        <input type="number" name="kontonummer" /><br />
+
+        <input type="submit" value="Kunde hinzufügen" />
+    </form>
+</div>
+
+
+    <td>
+        <a href="/pawn/kunden/kunden_hinzufuegen.html">Kunden hinzufügen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/kunden_suchen.html">Kunden suchen</a>
+    </td>
+    <td>
+        <a href="/pawn/kunden/transaktion_erfassen.html">Einkauf/Verkauf erfassen</a>
+    </td>
+    <td>
+        <a href="/pawn/index.php">Hauptmenü</a>
+    </td>
+</div>
+</main>
+</body>
+</html>
